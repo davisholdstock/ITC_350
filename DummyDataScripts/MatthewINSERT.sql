@@ -14,4 +14,4 @@ INSERT INTO Ingredient (Count, Units, IRecipeID, IngredientID)
 VALUES (16, 'biscuits', 1, 1);
 
 INSERT INTO ShoppingList (SLUserID, SLItemID)
-VALUES (1, 2);
+VALUES (1, 1);
