@@ -38,6 +38,14 @@ def insert_data(connection):
 """)
     connection.commit()
 
+def delete_data(connection):
+    with connection.cursor() as query:
+        query.execute("""
+            DELETE FROM test WHERE id=2;
+""")
+    connection.commit()
+
+
 def main():
     create_table(connect())
     insert_data(connect())
