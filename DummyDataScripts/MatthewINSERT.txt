@@ -1,1 +1,20 @@
-No insert statements yet
+INSERT INTO Recipe ()
+VALUES ();
+
+INSERT INTO User (Username, Password)
+VALUES ('scoobydooby', 'doooo123');
+
+INSERT INTO Friendship ()
+VALUES ();
+
+INSERT INTO Item (ItemName)
+VALUES ('Scooby Snacks');
+
+INSERT INTO Cookbook ()
+VALUES ();
+
+INSERT INTO Ingredient ()
+VALUES ();
+
+INSERT INTO ShoppingList ()
+VALUES ();
