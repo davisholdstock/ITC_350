@@ -49,6 +49,7 @@ def delete_data(connection):
 def main():
     create_table(connect())
     insert_data(connect())
+    delete_data(connect())
 
 if __name__ == "__main__":
     main()
