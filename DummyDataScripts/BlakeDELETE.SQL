@@ -1,29 +1,13 @@
-INSERT INTO Recipe (Rating, Difficulty, Directions, Duration, Title)
-VALUES (5.0, 1.0, 'Go ahead and open the box, then eat 16 scooby snacks', 1, 'Scooby Snack Snack');
+DELETE FROM ShoppingList WHERE SLUserID = (SELECT User.UserID FROM User WHERE Username = 'Shaggy') AND SLItemID = (SELECT Item.ItemName FROM Item WHERE ItemName = 'Scooby Snacks');
 
-INSERT INTO User (Username, Password)
-VALUES ('scoobydooby', 'doooo123');
+DELETE FROM ShoppingList WHERE SLUserID = (SELECT User.UserID FROM User WHERE Username = 'Shaggy');
 
-INSERT INTO User (Username, Password)
-VALUES ('Shaggy', 'feedme');
+DELETE FROM Ingredient WHERE Ingredient.IngredientID = (SELECT Item.ItemID FROM Item WHERE ItemName = 'Scooby Snacks');
 
-INSERT INTO Item (ItemName)
-VALUES ('Scooby Snacks');
-
-INSERT INTO Ingredient (Count, Units, IRecipeID, IngredientID)
-VALUES (16, 'biscuits', 1, 1);
-
-INSERT INTO ShoppingList (SLUserID, SLItemID)
-VALUES (1, 1);
-
-DELETE FROM ShoppingList WHERE SLUserID = 1 AND SLItemID = 1;
-
-DELETE FROM Ingredient WHERE Count = 16 AND Units = 'biscuits' AND IRecipeID = 1 AND IngredientID = 1;
-
-DELETE FROM Item WHERE ItemName = 'Scooby Snacks';
+DELETE FROM Item WHERE Item.ItemName = 'Scooby Snacks';
 
 DELETE FROM User WHERE User.Username = 'Shaggy';
 
 DELETE FROM User WHERE User.Username = 'scoobydooby';
 
-DELETE FROM Recipe WHERE Recipe.RecipeID = 1;
+DELETE FROM Recipe WHERE Recipe.RecipeID = 'Scooby Snack Snack';
