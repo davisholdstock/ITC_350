@@ -8,5 +8,3 @@ Configure the Server, creating a password for the root user, which will be used 
 ![image](https://github.com/davisholdstock/ITC_350/assets/112412321/a6355fbb-580f-4cf3-9adf-7c9aa87edc68)
 
 For remote users log in with this command: ```mysqlsh -u <username> -p<password> -h <hostname> --sql```
-
-This works
