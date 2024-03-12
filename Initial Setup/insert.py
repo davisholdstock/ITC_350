@@ -2,6 +2,8 @@ import mysql.connector
 import os
 from dotenv import load_dotenv
 
+# This is a script for testing purposes only!!!
+
 load_dotenv(override=True)
 
 dbname = os.getenv('databasename')
