@@ -1,11 +1,12 @@
 CREATE TABLE IF NOT EXISTS Recipe
 (
   RecipeID INT AUTO_INCREMENT NOT NULL,
-  Rating FLOAT NOT NULL,
-  Difficulty FLOAT NOT NULL,
+  Rating FLOAT,
+  Difficulty FLOAT,
   Directions VARCHAR(4500) NOT NULL,
   Duration INT NOT NULL,
   Title VARCHAR(30) NOT NULL,
+  Catagory VARCHAR(30)
   PRIMARY KEY (RecipeID)
 );
 
