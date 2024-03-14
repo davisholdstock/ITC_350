@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS Recipe
   Directions VARCHAR(4500) NOT NULL,
   Duration INT NOT NULL,
   Title VARCHAR(30) NOT NULL,
-  Catagory VARCHAR(30),
+  Category VARCHAR(30),
   Picture MEDIUMBLOB,
   PRIMARY KEY (RecipeID)
 );
