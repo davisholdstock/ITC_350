@@ -9,8 +9,8 @@ INNER JOIN Recipe ON Cookbook.CBRecipeID = Recipe.RecipeID;
 CREATE VIEW IndividualRecipe AS
 SELECT RecipeID, Rating, Difficulty, Directions, Category, Picture, Duration, Title, IngredientID, Count, Units, ItemName
 FROM Recipe
-INNER JOIN Ingredient ON Recipe.RecipeID = Ingredient.RecipeID
-INNER JOIN ITEM ON Ingredient.IngredientID = Item.ItemID
+INNER JOIN Ingredient ON Recipe.RecipeID = Ingredient.IRecipeID
+INNER JOIN ITEM ON Ingredient.IngredientID = Item.ItemID;
 
 -- VIEW Statement for User Shopping Lists
 CREATE VIEW myShoppingList AS
@@ -23,7 +23,7 @@ INNER JOIN Item ON ShoppingList.SLItemID = Item.ItemID;
 CREATE VIEW AccountPage AS
 SELECT UserID, Username, Password, PUserID, FUserID
 FROM Friendship
-INNER JOIN User ON User.UserID = Friendship.PUserID
+INNER JOIN User ON User.UserID = Friendship.PUserID;
 
 -- VIEW Statement for Recipe Search page, Do we need this one?
 CREATE VIEW FindRecipe AS
@@ -36,4 +36,5 @@ INNER JOIN Recipe ON Ingredient.IRecipeID = Recipe.RecipeID;
 CREATE VIEW AllRecipes AS
 SELECT RecipeID, Rating, Difficulty, Category, Duration, Picture, Title, IngredientID, ItemName, ItemID
 FROM Recipe
-INNER JOIN Ingredient ON Recipe.RecipeID = Ingredient.RecipeID;
+INNER JOIN Ingredient ON Recipe.RecipeID = Ingredient.IRecipeID
+INNER JOIN Item ON Ingredient.IngredientID = Item.ItemID;
