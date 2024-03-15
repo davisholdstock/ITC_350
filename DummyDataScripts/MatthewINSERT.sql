@@ -15,3 +15,6 @@ VALUES (16, 'biscuits', 1, 1);
 
 INSERT INTO ShoppingList (SLUserID, SLItemID)
 VALUES (1, 1);
+
+INSERT INTO Cookbook
+VALUES (1, 1);
