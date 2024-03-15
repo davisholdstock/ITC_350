@@ -21,3 +21,27 @@
     border: 1px solid rgb(77, 103, 190);
     background-color: #d0e1f5;
 }
+
+.top-banner {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    height: 10vh;
+    width: 100vh;
+    /* border: 2px solid black; */
+}
+.sidebar-banner {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    /* border: 2px solid black; */
+    height: 90vh; /* Set sidebar height to 90% of viewport height */
+    width: 10vh;
+}
+.main-content {
+    padding: 20px;
+    /* border: 2px solid black; */
+    height: 90vh; /* Set main content height to 90% of viewport height */
+    width: 90vh;
+}
