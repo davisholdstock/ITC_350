@@ -8,3 +8,10 @@ Configure the Server, creating a password for the root user, which will be used 
 ![image](https://github.com/davisholdstock/ITC_350/assets/112412321/a6355fbb-580f-4cf3-9adf-7c9aa87edc68)
 
 For remote users log in with this command: ```mysqlsh -u <username> -p<password> -h <hostname> --sql```
+
+## To run the website using Flask
+1. Install python
+2. Install pip
+3. Run ```pip install Flask```
+4. Run ```pip install python-dotenv```
+5. Run ```pip install mysql-connector-python```
