@@ -30,11 +30,21 @@ def get_all_items():
     conn = get_db_connection()  # Create a new database connection
     cursor = conn.cursor() # Creates a cursor for the connection, you need this to do queries
     # Query the db
-    query = "SELECT * FROM item"
+    query = "SELECT * FROM Item"
     cursor.execute(query)
     # Get result and close
     result = cursor.fetchall() # Gets result from query
     conn.close() # Close the db connection (NOTE: You should do this after each query, otherwise your database may become locked)
+    return result
+
+# Get all recipes from the "recipes" table of the db
+def get_all_recipes():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    query = "SELECT * FROM Recipe"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    conn.close()
     return result
 # ------------------------ END FUNCTIONS ------------------------ #
 
@@ -45,6 +55,11 @@ def get_all_items():
 def home():
     items = get_all_items() # Call defined function to get all items
     return render_template("index.html", items=items) # Return the page to be rendered
+
+@app.route("/recipes", methods=["GET"])
+def recipes():
+    recipes = get_all_recipes()
+    return render_template("recipes.html", recipes=recipes) # Return the page to be rendered
 
 # EXAMPLE OF POST REQUEST
 @app.route("/new-item", methods=["POST"])
