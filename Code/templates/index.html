@@ -1,78 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cupboard Cooking</title>
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-    <!-- Show error or success messages if there are any -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        <!-- Check to see if there are any messages to show -->
-        {% if messages %}
-            {% for category, message in messages %}
-                <p class="alert {{ category }}">{{ message }}</p>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+{% extends 'baseTemplate.html' %}
 
-    <!-- Code for adding a new item -->
-    <!-- <h2>Add New Item</h2>
-    <form action="/new-item" method="post"> -->
-        <!-- Name -->
-        <!-- <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
-        <br> -->
-        <!-- Quantity -->
-        <!-- <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" required>
-        <br> -->
-        <!-- Submit Button -->
-        <!-- <input type="submit" value="Submit">
-    </form> -->
-
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Top Banner -->
-            <div class="col-12 top-banner">
-                <h1>Cupboard Cooking</h1>
-            </div>
-            <!-- Sidebar Banner -->
-            <div class="col-md-3 sidebar-banner">
-                <div class="col-md-3">
-					<ul class="nav flex-column mt-4">
-						<li class="nav-item">
-							<a class="nav-link active" href="#home">Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#cookbook">Cookbook</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="{{ url_for('recipes') }}">All Recipes</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#profile">Profile</a>
-						</li>
-					</ul>
-				</div>
-            </div>
-            <!-- Main Content -->
-            <div class="col-md-9 main-content">
-                <!-- Code for listing owned items -->
-                <!-- <h2>List of Owned Items</h2> -->
-                <ul>
-                    <!-- This is some python jinja2 code. Only existing items will be displayed. -->
-                    {% for item in items %}
-                        <li>ItemID: {{ item[0] }} - ItemName: {{ item[1] }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    
-</body>
-</html>
+{% block title %}Home{% endblock %}
+{% block code %}
+{% for item in items %}
+<li>ItemID: {{ item[0] }} - ItemName: {{ item[1] }}</li>
+{% endfor %}
+{% endblock %}

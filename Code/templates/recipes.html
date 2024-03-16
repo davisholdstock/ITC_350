@@ -1,63 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cupboard Cooking</title>
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/styles.css">
-</head>
-<body>
-    <!-- Show error or success messages if there are any -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        <!-- Check to see if there are any messages to show -->
-        {% if messages %}
-            {% for category, message in messages %}
-                <p class="alert {{ category }}">{{ message }}</p>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+{% extends 'baseTemplate.html' %}
 
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Top Banner -->
-            <div class="col-12 top-banner">
-                <h1>Cupboard Cooking</h1>
-            </div>
-            <!-- Sidebar Banner -->
-            <div class="col-md-3 sidebar-banner">
-                <div class="col-md-3">
-					<ul class="nav flex-column mt-4">
-						<li class="nav-item">
-							<a class="nav-link active" href="{{ url_for('home') }}">Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#cookbook">Cookbook</a>
-						</li>
-                        <li class="nav-item">
-							<a class="nav-link" href="#">All Recipes</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#profile">Profile</a>
-						</li>
-					</ul>
-				</div>
-            </div>
-            <!-- Main Content -->
-            <div class="col-md-9 main-content">
-                <!-- Code for listing owned items -->
-                <!-- <h2>List of Owned Items</h2> -->
-                <ul>
-                    <!-- This is some python jinja2 code. Only existing items will be displayed. -->
-                    {% for recipe in recipes %}
-                        <li>RecipeID: {{ recipe[0] }} - Rating: {{ recipe[1] }} - Difficulty: {{ recipe[2] }} - Directions: {{ recipe[3] }} - Duration: {{ recipe[4] }} - Title: {{ recipe[5] }} - Catagory: {{ recipe[6] }} - Picture: {{ recipe[7] }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    
-</body>
-</html>
+{% block title %}Recipes{% endblock %}
+{% block code %}
+{% for recipe in recipes %}
+<li>RecipeID: {{ recipe[0] }} - Rating: {{ recipe[1] }} - Difficulty: {{ recipe[2] }} - Directions: {{ recipe[3] }} - Duration: {{ recipe[4] }} - Title: {{ recipe[5] }} - Catagory: {{ recipe[6] }} - Picture: {{ recipe[7] }}</li>
+{% endfor %}
+{% endblock %}
