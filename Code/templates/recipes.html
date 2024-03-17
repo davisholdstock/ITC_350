@@ -3,6 +3,28 @@
 {% block title %}Recipes{% endblock %}
 {% block code %}
 {% for recipe in recipes %}
-<li>RecipeID: {{ recipe[0] }} - Rating: {{ recipe[1] }} - Difficulty: {{ recipe[2] }} - Directions: {{ recipe[3] }} - Duration: {{ recipe[4] }} - Title: {{ recipe[5] }} - Catagory: {{ recipe[6] }} - Picture: {{ recipe[7] }}</li>
+<div class="small">
+    <article class="recipe">
+       <!-- <div class="pizza-box">
+           <img src="https://brotokoll.com/wp-content/uploads/2019/12/xPSX_20190928_134709.jpg.pagespeed.ic.qsjw5ilFw5.jpg"  width="1500" height="1368" alt="">
+       </div> -->
+       <div class="recipe-content">
+           <p class="recipe-tags">
+               <span class="recipe-tag">{{ recipe[6] }}</span>
+               <!-- <span class="recipe-tag">Main dish</span> -->
+           </p>
+
+           <h3 class="recipe-title"><a href="#">{{ recipe[5] }}</a></h1>
+
+           <p class="recipe-metadata">
+               <span class="recipe-rating">{{ recipe[1] }}<!-- ★★★★<span>☆</span> --></span>
+               <!-- <span class="recipe-votes">(12 votes)</span> -->
+           </p>
+
+           <p class="recipe-desc">{{ recipe[3] }}</p>
+       </div>
+   </article>
+</div>
+<!-- <li>RecipeID: {{ recipe[0] }} - Rating: {{ recipe[1] }} - Difficulty: {{ recipe[2] }} - Directions: {{ recipe[3] }} - Duration: {{ recipe[4] }} - Title: {{ recipe[5] }} - Catagory: {{ recipe[6] }} - Picture: {{ recipe[7] }}</li> -->
 {% endfor %}
 {% endblock %}
