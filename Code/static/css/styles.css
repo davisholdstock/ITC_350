@@ -26,7 +26,7 @@
     background-color: #f8f9fa;
     padding: 20px;
     text-align: center;
-    height: 10vh;
+    height: 20vh;
     width: 100vh;
     /* border: 2px solid black; */
 }
@@ -36,19 +36,19 @@
     padding: 20px;
     text-align: center;
     /* border: 2px solid black; */
-    height: 90vh; /* Set sidebar height to 90% of viewport height */
+    height: 80vh; /* Set sidebar height to 90% of viewport height */
     width: 10vh;
 }
 .main-content {
     padding: 20px;
     border: 2px solid black;
-    height: 90vh; /* Set main content height to 90% of viewport height */
+    height: 80vh; /* Set main content height to 90% of viewport height */
     width: 90vh;
 }
 
 /**************************************************************************************************************/
 
-/* .recipe,
+.recipe,
 .pizza-box {
 	display: flex;
 	flex-wrap: wrap;
@@ -140,12 +140,12 @@
 			margin-right: 6px;
 		}
 	}
-} */
+}
 
 
 
 /* Body Layout */
-/* * {
+* {
 	box-sizing: border-box;
 }
 
@@ -171,4 +171,4 @@ body {
 	padding: 24px;
     border: 2px solid black;
 
-} */
+}
