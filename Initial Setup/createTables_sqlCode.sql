@@ -1,4 +1,4 @@
-CREATE DATABASE cupboard_cooking
+CREATE DATABASE cupboard_cooking;
 
 CREATE TABLE IF NOT EXISTS cupboard_cooking.Recipe
 (
@@ -51,10 +51,10 @@ CREATE TABLE IF NOT EXISTS cupboard_cooking.Ingredient
   Count FLOAT NOT NULL,
   Units VARCHAR(10),
   IRecipeID INT NOT NULL,
-  IngredientID INT NOT NULL,
+  I_ItemID INT NOT NULL,
   PRIMARY KEY (IRecipeID, IngredientID),
   FOREIGN KEY (IRecipeID) REFERENCES Recipe(RecipeID) ON DELETE CASCADE,
-  FOREIGN KEY (IngredientID) REFERENCES Item(ItemID) ON DELETE CASCADE
+  FOREIGN KEY (I_ItemID) REFERENCES Item(ItemID) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS cupboard_cooking.ShoppingList
