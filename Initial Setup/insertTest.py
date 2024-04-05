@@ -6,11 +6,11 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
-dbname = os.getenv('databasename')
-username = os.getenv('username')
-passwd = os.getenv('password')
-hostname = os.getenv('host')
-portnum = os.getenv('port')
+dbname = os.getenv('DB_NAME')
+username = os.getenv('DB_USER')
+passwd = os.getenv('DB_PASSWORD')
+hostname = os.getenv('DB_HOST')
+portnum = os.getenv('DB_PORT')
 
 def connect():
     connection = mysql.connector.connect(
