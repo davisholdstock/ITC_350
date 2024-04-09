@@ -52,6 +52,10 @@ def get_all_recipes():
 # ------------------------ BEGIN ROUTES ------------------------ #
 # EXAMPLE OF GET REQUEST
 @app.route("/", methods=["GET"])
+def login():
+    return render_template("login.html") # Return the page to be rendered
+
+@app.route("/home", methods=["GET"])
 def home():
     items = get_all_items() # Call defined function to get all items
     return render_template("index.html", items=items) # Return the page to be rendered
