@@ -51,9 +51,13 @@ def get_all_recipes():
 
 # ------------------------ BEGIN ROUTES ------------------------ #
 # EXAMPLE OF GET REQUEST
-@app.route("/", methods=["GET"])
+@app.route("/login", methods=["GET"])
 def login():
     return render_template("login.html") # Return the page to be rendered
+
+@app.route("/", methods=["GET"])
+def register():
+    return render_template("register.html") # Return the page to be rendered
 
 @app.route("/home", methods=["GET"])
 def home():
