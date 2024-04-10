@@ -53,23 +53,23 @@ def get_all_recipes():
 # EXAMPLE OF GET REQUEST
 @app.route("/login", methods=["GET"])
 def login():
-    return render_template("login.html") # Return the page to be rendered
+    return render_template("login.html")
 
 @app.route("/", methods=["GET"])
 def register():
-    return render_template("register.html") # Return the page to be rendered
+    return render_template("register.html")
 
 @app.route("/home", methods=["GET"])
 def home():
-    items = get_all_items() # Call defined function to get all items
+    items = get_all_items()
     return render_template("index.html", items=items) # Return the page to be rendered
 
 @app.route("/recipes", methods=["GET"])
 def recipes():
     recipes = get_all_recipes()
-    return render_template("recipes.html", recipes=recipes) # Return the page to be rendered
+    return render_template("recipes.html", recipes=recipes)
 
-# EXAMPLE OF POST REQUEST
+# POST a new user
 @app.route("/new-user", methods=["POST"])
 def add_user():
     try:
@@ -83,7 +83,6 @@ def add_user():
         #     # error = 'Passwords do not match'
         #     flash("Passwords do not match", "error")
         # else:
-            # TODO: Insert this data into the database
         conn = get_db_connection()
         cursor = conn.cursor()
         query = """INSERT INTO User (Username, Password) VALUES (%s, %s)"""
