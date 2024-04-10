@@ -70,16 +70,26 @@ def recipes():
     return render_template("recipes.html", recipes=recipes) # Return the page to be rendered
 
 # EXAMPLE OF POST REQUEST
-@app.route("/new-item", methods=["POST"])
-def add_item():
+@app.route("/new-user", methods=["POST"])
+def add_user():
     try:
+        # error = None
         # Get items from the form
         data = request.form
-        item_name = data["name"] # This is defined in the input element of the HTML form on index.html
-        item_quantity = data["quantity"] # This is defined in the input element of the HTML form on index.html
-
-        # TODO: Insert this data into the database
-        
+        user_password = data["password2"]
+        user_email = data["emailaddress2"]
+        confirm_password = data["confirmpassword2"]
+        # if password != confirm_password:
+        #     # error = 'Passwords do not match'
+        #     flash("Passwords do not match", "error")
+        # else:
+            # TODO: Insert this data into the database
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        query = """INSERT INTO User (Username, Password) VALUES (%s, %s)"""
+        cursor.execute(query, (user_email, user_password))
+        conn.commit()
+        conn.close
         # Send message to page. There is code in index.html that checks for these messages
         flash("Item added successfully", "success")
         # Redirect to home. This works because the home route is named home in this file
