@@ -1,13 +1,13 @@
 {% extends 'baseTemplate.html' %}
 
-{% block title %}Recipes{% endblock %}
+{% block title %}<br>Recipes{% endblock %}
 {% block code %}
 {% for recipe in recipes %}
 <div class="small">
     <article class="recipe">
-       <!-- <div class="pizza-box">
-           <img src="https://brotokoll.com/wp-content/uploads/2019/12/xPSX_20190928_134709.jpg.pagespeed.ic.qsjw5ilFw5.jpg"  width="1500" height="1368" alt="">
-       </div> -->
+       <div class="pizza-box">
+           <img src="{{url_for('static', filename='mainLogo.png')}}"  width="1500" height="1368" alt="">
+       </div>
        <div class="recipe-content">
            <p class="recipe-tags">
                <span class="recipe-tag">{{ recipe[6] }}</span>
@@ -20,8 +20,6 @@
                <span class="recipe-rating">{{ recipe[1] }}<!-- ★★★★<span>☆</span> --></span>
                <!-- <span class="recipe-votes">(12 votes)</span> -->
            </p>
-
-           <p class="recipe-desc">{{ recipe[3] }}</p>
        </div>
    </article>
 </div>
