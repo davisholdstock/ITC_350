@@ -41,7 +41,7 @@ def insert(sql, conn):
 
 def main():
     conn = connect()
-    with open('ourItems.csv', newline='', encoding='utf-8-sig') as csvfile:
+    with open('ITC_350/Initial Setup/ourItems.csv', newline='', encoding='utf-8-sig') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             # Generate SQL insert statement for each row
