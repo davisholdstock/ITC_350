@@ -50,29 +50,33 @@ def get_all_recipes():
     return result
 
 # Check if user logged in
-# def is_logged_in(f):
-#     @wraps(f)
-#     def wrap(*args, **kwargs):
-#         if 'logged_in' in session:
-#             return f(*args, **kwargs)
-#         else:
-#             flash('Unauthorized, Please login', 'danger')
-#             return redirect(url_for('login'))
-#     return wrap
+def is_logged_in(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash('Unauthorized, Please login', 'danger')
+            return redirect(url_for('login'))
+    return wrap
 # ------------------------ END FUNCTIONS ------------------------ #
 
 
 # ------------------------ BEGIN ROUTES ------------------------ #
-# EXAMPLE OF GET REQUEST
-# @app.route("/login", methods=["GET"])
-# def login():
-#     return render_template("login.html")
+# Logout
+@app.route('/logout')
+@is_logged_in
+def logout():
+    session.clear()
+    flash('You are now logged out', 'success')
+    return redirect(url_for('login'))
 
 @app.route("/", methods=["GET"])
 def register():
     return render_template("register.html")
 
 @app.route("/home", methods=["GET"])
+@is_logged_in
 def home():
     items = get_all_items()
     return render_template("index.html", items=items) # Return the page to be rendered
