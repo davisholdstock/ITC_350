@@ -1,7 +1,9 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, session, url_for, flash
 import mysql.connector
 from dotenv import load_dotenv
+# from passlib.hash import sha256_crypt
+from functools import wraps
 
 
 # Load environment variables from .env file
@@ -46,14 +48,25 @@ def get_all_recipes():
     result = cursor.fetchall()
     conn.close()
     return result
+
+# Check if user logged in
+# def is_logged_in(f):
+#     @wraps(f)
+#     def wrap(*args, **kwargs):
+#         if 'logged_in' in session:
+#             return f(*args, **kwargs)
+#         else:
+#             flash('Unauthorized, Please login', 'danger')
+#             return redirect(url_for('login'))
+#     return wrap
 # ------------------------ END FUNCTIONS ------------------------ #
 
 
 # ------------------------ BEGIN ROUTES ------------------------ #
 # EXAMPLE OF GET REQUEST
-@app.route("/login", methods=["GET"])
-def login():
-    return render_template("login.html")
+# @app.route("/login", methods=["GET"])
+# def login():
+#     return render_template("login.html")
 
 @app.route("/", methods=["GET"])
 def register():
@@ -98,6 +111,50 @@ def add_user():
     except Exception as e:
         flash(f"An error occurred: {str(e)}", "error") # Send the error message to the web page
         return redirect(url_for("home")) # Redirect to home
+    
+# User login
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        # Get Form Fields
+        row = request.form
+        username = row["email"]
+        password_candidate = row["password"]
+
+        # Create cursor
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Get user by username
+        query = """SELECT * FROM User WHERE Username = %s"""
+        cursor.execute(query, (username,))
+        result = cursor.fetchone()
+        conn.close()
+        print(result)
+
+        if result != None:
+            # Get stored hash
+            password = result[2]
+            print(password)
+
+            # Compare Passwords
+            if password_candidate == password: # sha256_crypt.verify(password_candidate, password):
+                # Passed
+                session['logged_in'] = True
+                session['username'] = username
+
+                flash('You are now logged in', 'success')
+                return redirect(url_for('home'))
+            else:
+                error = 'Invalid login'
+                return render_template('login.html', error=error)
+            # Close connection
+            conn.close()
+        else:
+            error = 'Username not found'
+            return render_template('login.html', error=error)
+
+    return render_template('login.html')
 # ------------------------ END ROUTES ------------------------ #
 
 
