@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS cupboard_cooking.Recipe
   Difficulty FLOAT,
   Directions VARCHAR(4500) NOT NULL,
   Duration INT NOT NULL,
-  Title VARCHAR(30) NOT NULL,
+  Title VARCHAR(100) NOT NULL,
   Category VARCHAR(30),
   Picture VARCHAR(100),
   PRIMARY KEY (RecipeID)
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS cupboard_cooking.Friendship
 CREATE TABLE IF NOT EXISTS cupboard_cooking.Item
 (
   ItemID INT AUTO_INCREMENT NOT NULL,
-  ItemName VARCHAR(30) UNIQUE NOT NULL,
+  ItemName VARCHAR(30) UNIQUE NOT NULL IF NOT EXISTS,
   PRIMARY KEY (ItemID)
 );
 

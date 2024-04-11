@@ -28,8 +28,8 @@ def connect():
 tableName = "ingredient"
 
 def generate_insert_sql(row):
-    sql = f"INSERT INTO {tableName} (Count, Units, IRecipeID, IngredientID) VALUES ("
-    sql += f"{row['Count']}, '{row['Units']}', (SELECT IRecipeID FROM recipe WHERE Title = {row['Recipe Title']} ORDER BY IRecipeID LIMIT 1), (SELECT ItemID as IngredientID FROM Item WHERE ItemName = {row['Item Name']})"
+    sql = f"INSERT IGNORE INTO {tableName} (Count, Units, IRecipeID, I_ItemID) VALUES ("
+    sql += f"{row['Count']}, '{row['Units']}', (SELECT RecipeID as IRecipeID FROM recipe WHERE Title = '{row['Recipe Title']}'), (SELECT ItemID as I_ITEMID FROM Item WHERE ItemName = '{row['Item Name']}')"
     sql += ");"
     return sql
 
@@ -40,7 +40,7 @@ def insert(sql, conn):
 
 def main():
     conn = connect()
-    with open('ITC_350/Initial Setup/ourIngredients.csv', newline='') as csvfile:
+    with open('ourIngredients.csv', newline='', encoding='utf-8-sig') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             # Generate SQL insert statement for each row

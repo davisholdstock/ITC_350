@@ -29,7 +29,7 @@ def connect():
 tableName = "item"
 
 def generate_insert_sql(row):
-    sql = f"INSERT INTO {tableName} (ItemName) VALUES ("
+    sql = f"INSERT IGNORE INTO {tableName} (ItemName) VALUES ("
     sql += f"'{row['Item']}'"
     sql += ");"
     return sql
@@ -41,7 +41,7 @@ def insert(sql, conn):
 
 def main():
     conn = connect()
-    with open('ITC_350/Initial Setup/ourItems.csv', newline='') as csvfile:
+    with open('ourItems.csv', newline='', encoding='utf-8-sig') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             # Generate SQL insert statement for each row

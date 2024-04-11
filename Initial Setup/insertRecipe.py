@@ -29,8 +29,10 @@ def connect():
 tableName = "recipe"
 
 def generate_insert_sql(row):
+    directions = row['Directions'].replace("$", ",")
+    directions = directions.replace(";", ",")
     sql = f"INSERT INTO {tableName} (Rating, Difficulty, Directions, Duration, Title, Category, Picture) VALUES ("
-    sql += f"{row['Rating']}, {row['Difficulty']}, '{row['Directions']}', {row['Duration']}, '{row['Title']}', '{row['Category']}', '{row['Picture']}'"
+    sql += f"{row['Rating']}, {row['Difficulty']}, '{directions}', {row['Duration']}, '{row['Title']}', '{row['Category']}', '{row['Picture']}'"
     sql += ");"
     return sql
 
@@ -41,7 +43,7 @@ def insert(sql, conn):
 
 def main():
     conn = connect()
-    with open('ITC_350/Initial Setup/ourRecipies.csv', newline='') as csvfile:
+    with open('ourRecipies.csv', newline='', encoding='utf-8-sig') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             # Generate SQL insert statement for each row
