@@ -27,11 +27,11 @@
                 <img src="{{url_for('static', filename='mainLogo.png')}}" alt="logo" align="right" height="137.5px" width="141.5px" />
                 <!-- How you create a block to be able to change when adopting the template -->
                 <h1>{% block title %} {% endblock %}</h1>
-                <div class="navbar col-12">
-                    <p><a class="nav-link active" href="{{ url_for('home') }}">Home</a></p>
-                    <p><a class="nav-link" href="{{ url_for('recipes') }}">All Recipes</a></p>
-                    <p><a class="nav-link" href="{{ url_for('recipes') }}">Test</a></p>
-                </div>
+            </div>
+            <div class="navbar col-12">
+                <p><a class="nav-link active" href="{{ url_for('home') }}">Home</a></p>
+                <p><a class="nav-link" href="{{ url_for('recipes') }}">All Recipes</a></p>
+                <p><a class="nav-link" href="{{ url_for('recipes') }}">Test</a></p>
             </div>
             <!------------------------------------------------------------------- Sidebar Banner -------------------------------------------------------------------->
             <div class="col-md-3 sidebar-banner">
@@ -48,7 +48,7 @@
 				</div>
             </div>
             <!----------------------------------------------------------------------- Main Content -------------------------------------------------------------------->
-            <div class="col-md-9 main-content">
+            <div class="col-md-9 main-content row">
                 <!-- Code for listing owned items -->
                 {% block code %} {% endblock %}
             </div>

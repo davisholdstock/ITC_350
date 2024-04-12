@@ -3,10 +3,10 @@
 {% block title %}<br>Recipes{% endblock %}
 {% block code %}
 {% for recipe in recipes %}
-<div class="small">
+<div class="col-sm-6">
     <article class="recipe">
        <div class="pizza-box">
-           <img src="{{url_for('static', filename='mainLogo.png')}}"  width="1500" height="1368" alt="">
+           <!-- <img src="{{url_for('static', filename='mainLogo.png')}}"  width="1500" height="1368" alt=""> -->
        </div>
        <div class="recipe-content">
            <p class="recipe-tags">
