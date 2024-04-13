@@ -87,8 +87,6 @@ def register():
 @app.route("/", methods=["GET"])
 @is_logged_in
 def home():
-    print(session['username'])
-    print(session['user_id'])
     items = get_user_info()
     return render_template("index.html", items=items) # Return the page to be rendered
 

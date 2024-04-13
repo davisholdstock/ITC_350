@@ -2,7 +2,8 @@
 
 {% block title %}<br>Home{% endblock %}
 {% block code %}
+<img src="{{url_for('static', filename='missing_profile_photo.png')}}" alt="logo" align="left" height="120px"/>
 {% for item in items %}
-<li>ItemID: {{ item[0] }} - ItemName: {{ item[1] }}</li>
+<div style="padding: 3%;">Username: {{ item [1] }}</div>
 {% endfor %}
 {% endblock %}
