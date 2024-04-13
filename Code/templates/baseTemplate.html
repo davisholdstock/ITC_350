@@ -24,13 +24,13 @@
         <div class="row">
             <!------------------------------------------------------------------ Top Banner ----------------------------------------------------------------------->
             <div class="col-12 top-banner">
-                <img src="{{url_for('static', filename='mainLogo.png')}}" alt="logo" align="right" height="120px" position="absolute"/> <!--width="141.5px" />-->
+                <!-- <img src="{{url_for('static', filename='mainLogo.png')}}" alt="logo" align="right" height="120px"/> -->
                 <!-- How you create a block to be able to change when adopting the template -->
                 <h1>{% block title %} {% endblock %}</h1>
                 <div class="navbar col-12">
                     <p><a class="nav-link active" href="{{ url_for('home') }}">Home</a></p>
                     <p><a class="nav-link" href="{{ url_for('recipes') }}">All Recipes</a></p>
-                    <p><a class="nav-link" href="{{ url_for('recipes') }}">Test</a></p>
+                    <p><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></p>
                 </div>
             </div>
             <!------------------------------------------------------------------- Sidebar Banner -------------------------------------------------------------------->

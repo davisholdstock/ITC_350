@@ -39,6 +39,15 @@ def get_all_items():
     conn.close() # Close the db connection (NOTE: You should do this after each query, otherwise your database may become locked)
     return result
 
+def get_user_info():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    query = "SELECT * FROM User WHERE UserID = %s"
+    cursor.execute(query, (session['user_id'],))
+    result = cursor.fetchall()
+    conn.close()
+    return result
+
 # Get all recipes from the "recipes" table of the db
 def get_all_recipes():
     conn = get_db_connection()
@@ -71,14 +80,16 @@ def logout():
     flash('You are now logged out', 'success')
     return redirect(url_for('login'))
 
-@app.route("/", methods=["GET"])
+@app.route("/register", methods=["GET"])
 def register():
     return render_template("register.html")
 
-@app.route("/home", methods=["GET"])
+@app.route("/", methods=["GET"])
 @is_logged_in
 def home():
-    items = get_all_items()
+    print(session['username'])
+    print(session['user_id'])
+    items = get_user_info()
     return render_template("index.html", items=items) # Return the page to be rendered
 
 @app.route("/recipes", methods=["GET"])
@@ -139,13 +150,13 @@ def login():
         if result != None:
             # Get stored hash
             password = result[2]
-            print(password)
 
             # Compare Passwords
             if password_candidate == password: # sha256_crypt.verify(password_candidate, password):
                 # Passed
                 session['logged_in'] = True
                 session['username'] = username
+                session['user_id'] = result[0]
 
                 flash('You are now logged in', 'success')
                 return redirect(url_for('home'))
