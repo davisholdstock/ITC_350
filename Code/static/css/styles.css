@@ -31,19 +31,20 @@
     /* border: 2px solid black; */
 }
 .sidebar-banner {
-    background-color: #343a40;
-    color: #ffffff;
-    padding: 20px;
-    text-align: center;
+    /* background-color: #343a40; */
+    /* color: #ffffff; */
+    /* padding: 20px; */
+    /* text-align: center; */
     /* border: 2px solid black; */
     height: 80vh; /* Set sidebar height to 90% of viewport height */
-    width: 10vh;
+    width: 20vh;
 }
 .main-content {
     padding: 20px;
     border: 2px solid black;
+	overflow: auto;
+    width: 95vh;
     height: 80vh; /* Set main content height to 90% of viewport height */
-    width: 90vh;
 }
 
 /**************************************************************************************************************/
