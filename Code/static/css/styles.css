@@ -40,6 +40,7 @@
     width: 20vh;
 }
 .main-content {
+	position: relative;
     padding: 20px;
     border: 2px solid black;
 	overflow: auto;
@@ -47,12 +48,19 @@
     height: 80vh; /* Set main content height to 90% of viewport height */
 }
 .navbar {
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	left: 0px;
+	padding-bottom: 0px;
 	background-color: grey;
+	margin-bottom: 0px;
 }
 .navbar-links {
 	color: #193753;
 }
 .navbar-links-box {
+	border-radius: 5px;
 	border-top: 2px solid black;
 	border-left: 2px solid black;
 	border-right: 2px solid black;
