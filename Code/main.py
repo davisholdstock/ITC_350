@@ -42,8 +42,12 @@ def get_all_items():
 def get_user_info():
     conn = get_db_connection()
     cursor = conn.cursor()
-    query = "SELECT * FROM User WHERE UserID = %s"
-    cursor.execute(query, (session['user_id'],))
+    if (session['username'] == "admin_davis@gmail.com"):
+        query = "SELECT * FROM User"
+        cursor.execute(query)
+    else:
+        query = "SELECT * FROM User WHERE UserID = %s"
+        cursor.execute(query, (session['user_id'],))
     result = cursor.fetchall()
     conn.close()
     return result
@@ -72,6 +76,37 @@ def is_logged_in(f):
 
 
 # ------------------------ BEGIN ROUTES ------------------------ #
+@app.route("/", methods=["GET"])
+@is_logged_in
+def home():
+    items = get_user_info()
+    return render_template("index.html", items=items) # Return the page to be rendered
+
+@app.route("/mycookbook", methods=["GET"])
+@is_logged_in
+def my_cookbook():
+    return render_template("myCookbook.html") # Return the page to be rendered
+
+@app.route("/findrecipe", methods=["GET"])
+@is_logged_in
+def find_recipe():
+    return render_template("findRecipe.html") # Return the page to be rendered
+
+@app.route("/recipes", methods=["GET"])
+def recipes():
+    recipes = get_all_recipes()
+    return render_template("recipes.html", recipes=recipes)
+
+@app.route("/addrecipe", methods=["GET"])
+@is_logged_in
+def add_recipe():
+    return render_template("addRecipe.html") # Return the page to be rendered
+
+@app.route("/shoppinglist", methods=["GET"])
+@is_logged_in
+def shopping_list():
+    return render_template("shoppingList.html") # Return the page to be rendered
+
 # Logout
 @app.route('/logout')
 @is_logged_in
@@ -83,17 +118,6 @@ def logout():
 @app.route("/register", methods=["GET"])
 def register():
     return render_template("register.html")
-
-@app.route("/", methods=["GET"])
-@is_logged_in
-def home():
-    items = get_user_info()
-    return render_template("index.html", items=items) # Return the page to be rendered
-
-@app.route("/recipes", methods=["GET"])
-def recipes():
-    recipes = get_all_recipes()
-    return render_template("recipes.html", recipes=recipes)
 
 # POST a new user
 @app.route("/new-user", methods=["POST"])
