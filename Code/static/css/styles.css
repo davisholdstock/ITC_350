@@ -23,7 +23,7 @@
 }
 
 .top-banner {
-    background-color: #f8f9fa;
+    background-color: #193753;
     padding: 20px;
     text-align: center;
     height: 20vh;
@@ -45,6 +45,17 @@
 	overflow: auto;
     width: 95vh;
     height: 80vh; /* Set main content height to 90% of viewport height */
+}
+.navbar {
+	background-color: grey;
+}
+.navbar-links {
+	color: #193753;
+}
+.navbar-links-box {
+	border-top: 2px solid black;
+	border-left: 2px solid black;
+	border-right: 2px solid black;
 }
 
 /**************************************************************************************************************/

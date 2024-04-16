@@ -5,5 +5,8 @@
 <img src="{{url_for('static', filename='missing_profile_photo.png')}}" alt="logo" align="left" height="120px"/>
 {% for item in items %}
 <div style="padding: 3%;">Username: {{ item [1] }}</div>
+{% if session['username'] == "admin_davis@gmail.com" %}
+<div style="padding: 3%;">Password: {{ item [2] }}</div>
+{% endif %}
 {% endfor %}
 {% endblock %}
