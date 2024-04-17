@@ -174,7 +174,7 @@ def add_recipe():
         user_id = session['user_id']
         conn = get_db_connection()
         cursor = conn.cursor()
-        query = """INSERT INTO myCookbook (CBRecipeID, CBUserID) VALUES (%s, %s)"""
+        query = """INSERT INTO Cookbook (CBRecipeID, CBUserID) VALUES (%s, %s)"""
         cursor.execute(query, (recipe_id, user_id))
         conn.commit()
         conn.close()
