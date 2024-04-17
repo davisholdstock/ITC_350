@@ -123,7 +123,7 @@ def get_some_recipes():
     placeholders = ', '.join(['%s'] * len(item_names))
     # Query to retrieve RecipeIDs from the FindRecipe view
     query = """
-        SELECT * FROM recipe WHERE RecipeID IN
+        SELECT * FROM Recipe WHERE RecipeID IN
         (SELECT DISTINCT RecipeID
         FROM FindRecipe
         WHERE ItemName IN ({})
@@ -142,6 +142,19 @@ def get_some_recipes():
             recipelist.append(recipe)
     conn.close()
     return render_template("recipes.html", recipes=recipelist)
+
+@app.route("/change_username", methods=["POST"])
+@is_logged_in
+def changeusername():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    data = request.form
+    newuser = data["ChangeUsername"]
+    query = """UPDATE User SET Username = %s WHERE UserID = %s"""
+    cursor.execute(query, (newuser, session["user_id"]))
+    conn.close()
+    print(get_user_info())
+    return render_template("index.html", items=get_user_info())
 
 @app.route("/recipes", methods=["GET"])
 def recipes():
