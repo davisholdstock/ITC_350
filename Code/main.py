@@ -184,11 +184,11 @@ def add_recipe():
         conn.commit()
         conn.close()
         flash("Item add successfully to your Cookbook", "success")
-        return 
+        return True
     # If an error occurs, this code block will be called
     except Exception as e:
         flash(f"An error occurred: {str(e)}", "error") # Send the error message to the web page
-        return  # Redirect to home
+        return True # Redirect to home
 
 # POST a new user
 @app.route("/new-user", methods=["POST"])
