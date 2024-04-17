@@ -26,7 +26,7 @@ def connect():
     )
     return connection
 
-tableName = "item"
+tableName = "Item"
 
 def generate_insert_sql(row):
     sql = f"INSERT IGNORE INTO {tableName} (ItemName) VALUES ("

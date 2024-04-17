@@ -25,11 +25,11 @@ def connect():
     )
     return connection
 
-tableName = "ingredient"
+tableName = "Ingredient"
 
 def generate_insert_sql(row):
     sql = f"INSERT IGNORE INTO {tableName} (Count, Units, IRecipeID, I_ItemID) VALUES ("
-    sql += f"{row['Count']}, '{row['Units']}', (SELECT RecipeID as IRecipeID FROM recipe WHERE Title = '{row['Recipe Title']}'), (SELECT ItemID as I_ITEMID FROM Item WHERE ItemName = '{row['Item Name']}')"
+    sql += f"{row['Count']}, '{row['Units']}', (SELECT RecipeID as IRecipeID FROM Recipe WHERE Title = '{row['Recipe Title']}'), (SELECT ItemID as I_ITEMID FROM Item WHERE ItemName = '{row['Item Name']}')"
     sql += ");"
     return sql
 

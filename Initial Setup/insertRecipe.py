@@ -26,7 +26,7 @@ def connect():
     )
     return connection
 
-tableName = "recipe"
+tableName = "Recipe"
 
 def generate_insert_sql(row):
     directions = row['Directions'].replace("$", ",")
