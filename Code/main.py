@@ -150,8 +150,10 @@ def changeusername():
     cursor = conn.cursor()
     data = request.form
     newuser = data["ChangeUsername"]
-    query = """UPDATE User SET Username = %s WHERE UserID = %d"""
+    query = """UPDATE User SET Username = %s WHERE UserID = %s"""
     userid = session["user_id"]
+    print(userid)
+    print(newuser)
     cursor.execute(query, (newuser, userid))
     conn.close()
     print(get_user_info())
