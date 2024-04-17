@@ -172,7 +172,7 @@ def register():
 
 # Add recipe to user cookbook
 @app.route("/recipe-to-cookbook", methods=["POST"])
-def add_recipeCB():
+def add_recipe():
     try:
         data = request.form
         recipe_id = data["recipe_id"]

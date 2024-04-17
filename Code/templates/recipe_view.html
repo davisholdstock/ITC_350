@@ -6,7 +6,7 @@
 <img src="{{url_for('static', filename='recipe_pictures/' + result[7])}}">
 <div>{{ result[3] }}</div>
 <div>
-    <form action="{{ url_for('add_recipeCB') }}" method="post">
+    <form action="{{ url_for('add_recipe') }}" method="post">
         <input type="hidden" name="recipe_id" value="{{ result[0] }}"/>
         <div>
             <button id="submit" name="submit" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
