@@ -27,9 +27,9 @@ INNER JOIN User ON User.UserID = Friendship.PUserID;
 
 -- VIEW Statement for Recipe Search page, Do we need this one?
 CREATE VIEW FindRecipe AS
-SELECT ItemID, ItemName, IngredientID, RecipeID, Category
+SELECT ItemID, ItemName, I_ItemID, RecipeID, Category
 FROM Ingredient
-INNER JOIN Item ON Item.ItemID = Ingredient.IngredientID
+INNER JOIN Item ON Item.ItemID = Ingredient.I_ItemID
 INNER JOIN Recipe ON Ingredient.IRecipeID = Recipe.RecipeID;
 
 -- VIEW STATEMENT for All Recipes

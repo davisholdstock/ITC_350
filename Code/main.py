@@ -99,29 +99,35 @@ def get_some_recipes():
     cursor = conn.cursor()
     data = request.args
     include = data["Ingredients"]
-    exclude = data["NoIngredients"]
     category = data["category"]
-    ingredients = include.split(",")
+    ingredients = include.strip().split(",")
     print(include)
     print(category)
-    query = """SELECT * FROM recipe WHERE RecipeID IN ("""
-    intersect_queries = []
-    params = []
-    for ingredient in ingredients:
-        intersect_query = (
-            """SELECT IRecipeID FROM ingredient WHERE I_ItemID = (SELECT ItemID FROM item WHERE ItemName = %s)"""
-        )
-        intersect_queries.append(intersect_query)
-        params.append(ingredient)
-    query += """ INTERSECT """.join(intersect_queries)
-    query += """) AND category = %s;"""
+   
+    item_names = tuple(ingredients)
+    # Generate the placeholders for the IN clause
+    placeholders = ', '.join(['%s'] * len(item_names))
+    # Query to retrieve RecipeIDs from the FindRecipe view
+    query = """
+        SELECT * FROM recipe WHERE RecipeID IN
+        (SELECT DISTINCT RecipeID
+        FROM FindRecipe
+        WHERE ItemName IN ({})
+        GROUP BY RecipeID
+        HAVING COUNT(DISTINCT ItemName) = %s);
+    """.format(placeholders)
+    # Count of ingredients to match
+    ingredient_count = len(item_names)
+    # Execute the query
+    cursor.execute(query, item_names + (ingredient_count,))
 
-    params.append(category)
-
-    cursor.execute(query, tuple(params))
     result = cursor.fetchall()
+    recipelist = []
+    for recipe in result:
+        if recipe[6] == category:
+            recipelist.append(recipe)
     conn.close()
-    return render_template("recipes.html", recipes=result)
+    return render_template("recipes.html", recipes=recipelist)
 
 @app.route("/recipes", methods=["GET"])
 def recipes():
