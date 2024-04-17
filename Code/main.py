@@ -170,6 +170,26 @@ def logout():
 def register():
     return render_template("register.html")
 
+# Add recipe to user cookbook
+@app.route("/recipe-to-cookbook", methods=["POST"])
+def add_recipe():
+    try:
+        data = request.form
+        recipe_id = data["recipe_id"]
+        user_id = session['user_id']
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        query = """INSERT INTO myCookbook (CBRecipeID, CBUserID) VALUES (%s, %s)"""
+        cursor.execute(query, (recipe_id, user_id))
+        conn.commit()
+        conn.close
+        flash("Item add successfully to your Cookbook", "success")
+        return redirect(url_for("home"))
+    # If an error occurs, this code block will be called
+    except Exception as e:
+        flash(f"An error occurred: {str(e)}", "error") # Send the error message to the web page
+        return redirect(url_for("home")) # Redirect to home
+
 # POST a new user
 @app.route("/new-user", methods=["POST"])
 def add_user():
