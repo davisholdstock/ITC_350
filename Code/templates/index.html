@@ -10,13 +10,14 @@
         <form action="/change-username" method="post">
             <div style="padding: 3%;">
                 <div>
-                    <input type="text" name="ChangeUsername" id="ChangeUsername">
+                    <input type="email" name="ChangeUsername" id="ChangeUsername">
                 </div>
                 <div>
                     <label for="ChangeUsername">New Username</label>
                 </div>
             </div>
-            <button type="submit">Change Username</button>
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+            style="padding-left: 2.5rem; padding-right: 2.5rem;">Change Username</button>
         </form>
         <form action="/change-password" method="post">
             <div style="padding: 3%;">

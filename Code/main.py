@@ -178,13 +178,14 @@ def add_recipe():
         cursor.execute(query, (recipe_id, user_id))
         conn.commit()
         conn.close()
-        flash("Item add successfully to your Cookbook", "success")
-        return True
-    # If an error occurs, this code block will be called
+        session["username"] = newuser
+        items = get_user_info()
+        print(items)
+        return render_template("index.html", items=items)
     except Exception as e:
-        flash(f"An error occurred: {str(e)}", "error") # Send the error message to the web page
-        return True # 
-    
+        flash(f"An error occurred: {str(e)}", "error")
+        return render_template("index.html", items=get_user_info())
+
 # POST a new user
 @app.route("/new-user", methods=["POST"])
 def add_user():
@@ -195,20 +196,20 @@ def add_user():
         user_password = data["password2"]
         user_email = data["emailaddress2"]
         confirm_password = data["confirmpassword2"]
-        # if password != confirm_password:
-        #     # error = 'Passwords do not match'
-        #     flash("Passwords do not match", "error")
-        # else:
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        query = """INSERT INTO User (Username, Password) VALUES (%s, %s)"""
-        cursor.execute(query, (user_email, user_password))
-        conn.commit()
-        conn.close()
-        # Send message to page. There is code in index.html that checks for these messages
-        flash("Item added successfully", "success")
-        # Redirect to home. This works because the home route is named home in this file
-        return redirect(url_for("home"))
+        if user_password != confirm_password:
+            # error = 'Passwords do not match'
+            flash("Passwords do not match", "error")
+        else:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            query = """INSERT INTO User (Username, Password) VALUES (%s, %s)"""
+            cursor.execute(query, (user_email, user_password))
+            conn.commit()
+            conn.close
+            # Send message to page. There is code in index.html that checks for these messages
+            flash("Item added successfully", "success")
+            # Redirect to home. This works because the home route is named home in this file
+            return redirect(url_for("home"))
 
     # If an error occurs, this code block will be called
     except Exception as e:
