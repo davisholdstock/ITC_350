@@ -25,7 +25,7 @@ SELECT UserID, Username, Password, PUserID, FUserID
 FROM Friendship
 INNER JOIN User ON User.UserID = Friendship.PUserID;
 
--- VIEW Statement for Recipe Search page, Do we need this one?
+-- VIEW Statement for Recipe Search page. Up to date.
 CREATE VIEW FindRecipe AS
 SELECT ItemID, ItemName, I_ItemID, RecipeID, Category
 FROM Ingredient
