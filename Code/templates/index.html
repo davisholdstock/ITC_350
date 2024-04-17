@@ -2,11 +2,41 @@
 
 {% block title %}<br>Home{% endblock %}
 {% block code %}
-<img src="{{url_for('static', filename='missing_profile_photo.png')}}" alt="logo" align="left" height="120px"/>
+<img src="{{url_for('static', filename='missing_profile_photo.png')}}" alt="logo" align="left" height="120px" />
 {% for item in items %}
-<div style="padding: 3%;">Username: {{ item [1] }}</div>
+<div style="display: flex; flex-direction: column;">
+    <div style="padding: 3%;">Username: {{ item [1] }}</div>
+    <div style="display: flex; flex-direction: column;">
+        <form action="/change-username" method="post">
+            <div style="padding: 3%;">
+                <div>
+                    <input type="text" name="ChangeUsername" id="ChangeUsername">
+                </div>
+                <div>
+                    <label for="ChangeUsername">New Username</label>
+                </div>
+            </div>
+            <button type="submit">Change Username</button>
+        </form>
+        <form action="/change-password" method="post">
+            <div style="padding: 3%;">
+                <div>
+                    <input type="text" name="ChangePassword" id="ChangePassword">
+                </div>
+                <div>
+                    <label for="ChangePassword">New Password</label>
+                </div>
+            </div>
+            <button type="submit">Change Password</button>
+        </form>
+    </div>
+    
+
 {% if session['username'] == "admin_davis@gmail.com" %}
 <div style="padding: 3%;">Password: {{ item [2] }}</div>
 {% endif %}
 {% endfor %}
+
+
+
 {% endblock %}
