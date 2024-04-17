@@ -172,7 +172,7 @@ def register():
 
 # Add recipe to user cookbook
 @app.route("/recipe-to-cookbook", methods=["POST"])
-def add_recipe():
+def add_recipeCB():
     try:
         data = request.form
         recipe_id = data["recipe_id"]
@@ -188,8 +188,8 @@ def add_recipe():
     # If an error occurs, this code block will be called
     except Exception as e:
         flash(f"An error occurred: {str(e)}", "error") # Send the error message to the web page
-        return True # Redirect to home
-
+        return True # 
+    
 # POST a new user
 @app.route("/new-user", methods=["POST"])
 def add_user():
