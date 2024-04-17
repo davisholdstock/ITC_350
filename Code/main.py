@@ -102,18 +102,23 @@ def get_some_recipes():
     exclude = data["NoIngredients"]
     category = data["category"]
     ingredients = include.split(",")
-    print(ingredients)
+    print(include)
     print(category)
     query = """SELECT * FROM recipe WHERE RecipeID IN ("""
     intersect_queries = []
+    params = []
     for ingredient in ingredients:
         intersect_query = (
             """SELECT IRecipeID FROM ingredient WHERE I_ItemID = (SELECT ItemID FROM item WHERE ItemName = %s)"""
         )
         intersect_queries.append(intersect_query)
+        params.append(ingredient)
     query += """ INTERSECT """.join(intersect_queries)
-    query += """) AND Category = %s;"""
-    cursor.execute(query, (ingredients, category))
+    query += """) AND category = %s;"""
+
+    params.append(category)
+
+    cursor.execute(query, tuple(params))
     result = cursor.fetchall()
     conn.close()
     return render_template("recipes.html", recipes=result)
