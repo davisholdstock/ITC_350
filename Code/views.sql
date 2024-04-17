@@ -38,3 +38,10 @@ SELECT RecipeID, Rating, Difficulty, Category, Duration, Picture, Title, Ingredi
 FROM Recipe
 INNER JOIN Ingredient ON Recipe.RecipeID = Ingredient.IRecipeID
 INNER JOIN Item ON Ingredient.IngredientID = Item.ItemID;
+
+-- VIEW Statement for Items based on recipe
+CREATE VIEW ItemsForRecipe AS
+SELECT RecipeID, Rating, Difficulty, Directions, Duration, Title, Category, Picture, ItemID, ItemName, Count, Units
+FROM Recipe
+INNER JOIN Ingredient ON Recipe.RecipeID = Ingredient.IRecipeID
+INNER JOIN Item ON Ingredient.I_ItemID = Item.ItemID;

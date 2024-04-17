@@ -90,9 +90,9 @@ def recipe():
     recipe = data["recipe_id"]
     conn = get_db_connection()
     cursor = conn.cursor()
-    query = """SELECT * FROM recipe WHERE RecipeID = %s;"""
+    query = """SELECT * FROM ItemsForRecipe WHERE RecipeID = %s;"""
     cursor.execute(query, (recipe,))
-    result = cursor.fetchall()[0]
+    result = cursor.fetchall()
     conn.close()
     return render_template("recipe_view.html", result=result) # Return the page to be rendered
 
@@ -147,11 +147,6 @@ def get_some_recipes():
 def recipes():
     recipes = get_all_recipes()
     return render_template("recipes.html", recipes=recipes)
-
-@app.route("/addrecipe", methods=["GET"])
-@is_logged_in
-def add_recipe():
-    return render_template("addRecipe.html") # Return the page to be rendered
 
 @app.route("/shoppinglist", methods=["GET"])
 @is_logged_in
