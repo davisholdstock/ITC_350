@@ -143,22 +143,22 @@ def get_some_recipes():
     conn.close()
     return render_template("recipes.html", recipes=recipelist)
 
-@app.route("/change_username")
-@is_logged_in
-def changeusername():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    data = request.form
-    newuser = "\"" + data["ChangeUsername"] + "\""
-    query = """UPDATE User SET Username = %s WHERE UserID = %s;"""
-    userid = session["user_id"]
-    print(userid)
-    print(newuser)
-    print(query)
-    cursor.execute(query, (newuser, userid))
-    conn.close()
-    print(get_user_info())
-    return render_template("index.html", items=get_user_info())
+# @app.route("/change_username", methods=["PUT"])
+# @is_logged_in
+# def changeusername():
+#     conn = get_db_connection()
+#     cursor = conn.cursor()
+#     data = request.form
+#     newuser = "\"" + data["ChangeUsername"] + "\""
+#     query = """UPDATE User SET Username = %s WHERE UserID = %s;"""
+#     userid = session["user_id"]
+#     print(userid)
+#     print(newuser)
+#     print(query)
+#     cursor.execute(query, (newuser, userid))
+#     conn.close()
+#     print(get_user_info())
+#     return render_template("index.html", items=get_user_info())
 
 @app.route("/recipes", methods=["GET"])
 def recipes():
