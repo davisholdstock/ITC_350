@@ -167,7 +167,7 @@ def register():
 
 # Add recipe to user cookbook
 @app.route("/recipe-to-cookbook", methods=["POST"])
-def add_recipe():
+def add_recipeCB():
     try:
         data = request.form
         recipe_id = data["recipe_id"]
@@ -177,14 +177,14 @@ def add_recipe():
         query = """INSERT INTO myCookbook (CBRecipeID, CBUserID) VALUES (%s, %s)"""
         cursor.execute(query, (recipe_id, user_id))
         conn.commit()
-        conn.close
+        conn.close()
         flash("Item add successfully to your Cookbook", "success")
-        return redirect(url_for("home"))
+        return True
     # If an error occurs, this code block will be called
     except Exception as e:
         flash(f"An error occurred: {str(e)}", "error") # Send the error message to the web page
-        return redirect(url_for("home")) # Redirect to home
-
+        return True # 
+    
 # POST a new user
 @app.route("/new-user", methods=["POST"])
 def add_user():
@@ -204,7 +204,7 @@ def add_user():
         query = """INSERT INTO User (Username, Password) VALUES (%s, %s)"""
         cursor.execute(query, (user_email, user_password))
         conn.commit()
-        conn.close
+        conn.close()
         # Send message to page. There is code in index.html that checks for these messages
         flash("Item added successfully", "success")
         # Redirect to home. This works because the home route is named home in this file
