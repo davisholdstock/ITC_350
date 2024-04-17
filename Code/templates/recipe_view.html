@@ -1,0 +1,8 @@
+{% extends 'baseTemplate.html' %}
+
+{% block title %}<br>{{ result[5] }}{% endblock %}
+
+{% block code %}
+<img src="{{url_for('static', filename='recipe_pictures/' + result[7])}}">
+<div>{{ result[3] }}</div>
+{% endblock %}

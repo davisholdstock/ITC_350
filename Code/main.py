@@ -1,4 +1,5 @@
 import os
+import re
 from flask import Flask, render_template, request, redirect, session, url_for, flash
 import mysql.connector
 from dotenv import load_dotenv
@@ -81,6 +82,19 @@ def is_logged_in(f):
 def home():
     items = get_user_info()
     return render_template("index.html", items=items) # Return the page to be rendered
+
+@app.route("/recipeview", methods=["POST"])
+@is_logged_in
+def recipe():
+    data = request.form
+    recipe = data["recipe_id"]
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    query = """SELECT * FROM recipe WHERE RecipeID = %s;"""
+    cursor.execute(query, (recipe,))
+    result = cursor.fetchall()[0]
+    conn.close()
+    return render_template("recipe_view.html", result=result) # Return the page to be rendered
 
 @app.route("/mycookbook", methods=["GET"])
 @is_logged_in

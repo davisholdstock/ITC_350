@@ -3,18 +3,23 @@
 {% block title %}<br>Recipes{% endblock %}
 {% block code %}
 {% for recipe in recipes %}
-<div class="col-sm-6">
+<div>
     <article class="recipe">
        <div class="pizza-box">
-           <!-- <img src="{{url_for('static', filename='mainLogo.png')}}"  width="1500" height="1368" alt=""> -->
+        <img src="{{url_for('static', filename='recipe_pictures/' + recipe[7])}}" width="500" alt="">
        </div>
        <div class="recipe-content">
-           <p class="recipe-tags">
+            <p class="recipe-tags">
                <span class="recipe-tag">{{ recipe[6] }}</span>
                <!-- <span class="recipe-tag">Main dish</span> -->
-           </p>
+            </p>
 
-           <h3 class="recipe-title"><a href="#">{{ recipe[5] }}</a></h1>
+            <h3 class="recipe-title">
+                <form action="{{ url_for("recipe") }}" method="post">
+                    <input type="hidden" name="recipe_id" value="{{ recipe[0] }}"/>
+                    <button type="submit" value="Submit">{{ recipe[5] }}</button>
+                </form>
+            </h3>
 
            <p class="recipe-metadata">
                <span class="recipe-rating">{{ recipe[1] }}<!-- ★★★★<span>☆</span> --></span>
