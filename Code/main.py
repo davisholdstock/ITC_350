@@ -178,13 +178,10 @@ def add_recipe():
         cursor.execute(query, (recipe_id, user_id))
         conn.commit()
         conn.close()
-        session["username"] = newuser
-        items = get_user_info()
-        print(items)
-        return render_template("index.html", items=items)
+        return True
     except Exception as e:
         flash(f"An error occurred: {str(e)}", "error")
-        return render_template("index.html", items=get_user_info())
+        return True
 
 # POST a new user
 @app.route("/new-user", methods=["POST"])
