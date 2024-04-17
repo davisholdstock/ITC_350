@@ -154,6 +154,7 @@ def changeusername():
     userid = session["user_id"]
     print(userid)
     print(newuser)
+    print(query)
     cursor.execute(query, (newuser, userid))
     conn.close()
     print(get_user_info())
