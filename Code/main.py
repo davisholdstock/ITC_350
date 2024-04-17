@@ -143,7 +143,7 @@ def get_some_recipes():
     conn.close()
     return render_template("recipes.html", recipes=recipelist)
 
-@app.route("/change_username", methods=["PUT"])
+@app.route("/change_username")
 @is_logged_in
 def changeusername():
     conn = get_db_connection()
