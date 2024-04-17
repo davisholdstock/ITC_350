@@ -92,6 +92,32 @@ def my_cookbook():
 def find_recipe():
     return render_template("findRecipe.html") # Return the page to be rendered
 
+@app.route("/findsomerecipes", methods=["GET"])
+@is_logged_in
+def get_some_recipes():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    data = request.args
+    include = data["Ingredients"]
+    exclude = data["NoIngredients"]
+    category = data["category"]
+    ingredients = include.split(",")
+    print(ingredients)
+    print(category)
+    query = """SELECT * FROM recipe WHERE RecipeID IN ("""
+    intersect_queries = []
+    for ingredient in ingredients:
+        intersect_query = (
+            """SELECT IRecipeID FROM ingredient WHERE I_ItemID = (SELECT ItemID FROM item WHERE ItemName = %s)"""
+        )
+        intersect_queries.append(intersect_query)
+    query += """ INTERSECT """.join(intersect_queries)
+    query += """) AND Category = %s;"""
+    cursor.execute(query, (ingredients, category))
+    result = cursor.fetchall()
+    conn.close()
+    return render_template("recipes.html", recipes=result)
+
 @app.route("/recipes", methods=["GET"])
 def recipes():
     recipes = get_all_recipes()

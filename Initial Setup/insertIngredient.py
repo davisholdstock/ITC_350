@@ -9,10 +9,10 @@ import numpy as np
 
 load_dotenv(override=True)
 
-dbname = os.getenv('DB_NAME')
+dbname = os.getenv('DB_DATABASE')
 username = os.getenv('DB_USER')
 passwd = os.getenv('DB_PASSWORD')
-hostname = os.getenv('DB_HOST')
+hostname = os.getenv('DB')
 portnum = os.getenv('DB_PORT')
 
 def connect():
