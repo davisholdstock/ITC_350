@@ -6,6 +6,7 @@ import mysql.connector
 from dotenv import load_dotenv
 # from passlib.hash import sha256_crypt
 from functools import wraps
+import bcrypt
 
 
 # Load environment variables from .env file
@@ -84,6 +85,15 @@ def get_user_recipes():
     conn.close()
     print(result)
     return result
+
+def hash_password(password):
+    salt = bcrypt.gensalt()
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+    return hashed_password
+
+def verify_password(password, hashed_password):
+    # Verify the password against the hashed password
+    return bcrypt.checkpw(password.encode('utf-8'), hashed_password)
 
 # Check if user logged in
 def is_logged_in(f):
@@ -277,8 +287,23 @@ def rem_item():
     cursor.execute(query, (user_id, item_name))
     conn.commit()
     conn.close()
-    return render_template("shoppingList.html") # Return the page to be rendered
+    shoppinglist = get_shopping_list_items()
+    return render_template("shoppingList.html", itemList=shoppinglist) # Return the page to be rendered
 
+@app.route("/removeRecipe", methods=["POST", "GET"])
+@is_logged_in
+def rem_recipe():
+    data = request.form
+    recipe_title = data["kill_recipe_id"]
+    user_id = session['user_id']
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    query ="""DELETE FROM Cookbook WHERE CBUserID = %s AND CBRecipeID = (SELECT RecipeID FROM Item WHERE Title = %s)"""
+    cursor.execute(query, (user_id, recipe_title))
+    conn.commit()
+    conn.close()
+    userCookbook = get_user_recipes()
+    return render_template("shoppingList.html", recipes=userCookbook) # Return the page to be rendered
 
 # POST a new user
 @app.route("/new-user", methods=["POST"])
@@ -294,10 +319,11 @@ def add_user():
             # error = 'Passwords do not match'
             flash("Passwords do not match", "error")
         else:
+            hashedpassword = hash_password(user_password)
             conn = get_db_connection()
             cursor = conn.cursor()
             query = """INSERT INTO User (Username, Password) VALUES (%s, %s)"""
-            cursor.execute(query, (user_email, user_password))
+            cursor.execute(query, (user_email, hashedpassword))
             conn.commit()
             conn.close
             # Send message to page. There is code in index.html that checks for these messages

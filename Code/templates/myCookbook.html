@@ -25,6 +25,14 @@
                <span class="recipe-rating">{{ recipe[1] }}<!-- ★★★★<span>☆</span> --></span>
                <!-- <span class="recipe-votes">(12 votes)</span> -->
            </p>
+           <p class="Recipe_remove">
+            <form action="{{ url_for('rem_recipe')}}" method="post">
+                <input type="hidden" name="kill_recipe_id" value="{{recipe[0]}}"/>
+                <button id="remRecipe_{{loop.index}}" name="delete" type="delete" 
+                style="border-radius: 50%; background-color: rgb(96, 14, 14);
+                padding: 5px; font-size: 12px;"> X </button>
+            </form>
+        </p>
        </div>
    </article>
 </div>
