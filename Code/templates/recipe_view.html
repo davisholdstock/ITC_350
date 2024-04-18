@@ -9,6 +9,15 @@
     {% for item in result %}
         <br>
         {{ item[9] }} - Quantity: {{ item[10] }} {{ item[11] }}
+        <div>
+            <form action="{{ url_for('add_item') }}" method="post">
+                <input type="hidden" name="recipe_item" value="{{ item }}"/>
+                <div>
+                    <button id="submit_ingredients" name="submit" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Add Ingredients</button>
+                </div>
+            </form>
+        </div>
     {% endfor %}
 </div><br>
 <div><h3>Directions</h3></div><br>
@@ -22,16 +31,6 @@
         <div>
             <button id="submit" name="submit" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
             style="padding-left: 2.5rem; padding-right: 2.5rem;">Add To Cookbook</button>
-        </div>
-    </form>
-</div>
-
-<div>
-    <form action="{{ url_for('add_item') }}" method="post">
-        <input type="hidden" name="recipe_ingredients" value="{{ result }}"/>
-        <div>
-            <button id="submit_ingredients" name="submit" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
-            style="padding-left: 2.5rem; padding-right: 2.5rem;">Add All Ingredients</button>
         </div>
     </form>
 </div>

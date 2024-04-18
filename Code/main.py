@@ -242,13 +242,13 @@ def add_recipe():
     return render_template("recipe_view.html", result=result) # Return the page to be rendered
 
 
-@app.route("/addallitems", methods=["POST", "GET"])
+@app.route("/additems", methods=["POST", "GET"])
 @is_logged_in
 def add_item():
     data = request.form
     print(data)
-    recipe_id = data["recipe_ingredients"][0][0]
-    item_id = data["recipe_ingredients"][0][8]
+    recipe_id = data["recipe_item"][0]
+    item_id = data["recipe_item"][8]
     user_id = session['user_id']
     conn = get_db_connection()
     cursor = conn.cursor()
