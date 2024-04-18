@@ -9,13 +9,6 @@
     {% for item in result %}
         <br>
         {{ item[9] }} - Quantity: {{ item[10] }} {{ item[11] }}
-        <!-- <form action="{{ url_for('add_one_item') }}" method="post">
-            <input type="hidden" name="recipe_item" value="{{ result }}"/>
-            <div>
-                <button id="submit_ingredients" name="submit" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
-                style="padding-left: .5rem; padding-right: .5rem;">Add</button>
-            </div>
-        </form> -->
     {% endfor %}
 </div><br>
 <div><h3>Directions</h3></div><br>
