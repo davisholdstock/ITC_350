@@ -43,7 +43,7 @@ def get_all_items():
 def get_shopping_list_items():
     conn = get_db_connection()
     cursor = conn.cursor()
-    query = """SELECT ItemName FROM myShoppingList WHERE SLUserID = %s"""
+    query = "SELECT ItemName FROM myShoppingList WHERE SLUserID = %s"
     cursor.execute(query, (session['user_id'],))
     result = cursor.fetchall()
     conn.close()
@@ -58,7 +58,7 @@ def get_user_info():
         query = "SELECT * FROM User"
         cursor.execute(query)
     else:
-        query = """SELECT * FROM User WHERE UserID = %s"""
+        query = "SELECT * FROM User WHERE UserID = %s"
         cursor.execute(query, (session['user_id'],))
     result = cursor.fetchall()
     conn.close()
@@ -77,10 +77,8 @@ def get_all_recipes():
 def get_user_recipes():
     conn = get_db_connection()
     cursor = conn.cursor()
-    userid = session["user_id"]
     query = """SELECT * FROM Recipe WHERE RecipeID IN (SELECT CBRecipeID FROM Cookbook WHERE CBUserID = %s)"""
-    cursor.execute(query, (userid,))
-    conn.commit()
+    cursor.execute(query, (session['user_id'],))
     result = cursor.fetchall()
     conn.close()
     print(result)
@@ -122,8 +120,8 @@ def recipe():
 @app.route("/mycookbook", methods=["GET"])
 @is_logged_in
 def my_cookbook():
-    recipelist = get_user_recipes()
-    return render_template("myCookbook.html", recipes=recipelist) # Return the page to be rendered
+    recipes = get_user_recipes()
+    return render_template("myCookbook.html", recipes=recipes) # Return the page to be rendered
 
 @app.route("/findrecipe", methods=["GET"])
 @is_logged_in
@@ -173,7 +171,7 @@ def changeusername():
     conn = get_db_connection()
     cursor = conn.cursor()
     data = request.form
-    newuser = "\"" + data["ChangeUsername"] + "\""
+    newuser = data["ChangeUsername"]
     query = """UPDATE User SET Username = %s WHERE UserID = %s;"""
     userid = session["user_id"]
     print(userid)
@@ -193,8 +191,8 @@ def recipes():
 @app.route("/shoppinglist", methods=["GET"])
 @is_logged_in
 def shopping_list():
-    itemList = get_shopping_list_items()
-    return render_template("shoppingList.html") # Return the page to be rendered
+    itemList = get_shopping_list_items
+    return render_template("shoppingList.html", itemList=itemList) # Return the page to be rendered
 
 # Logout
 @app.route('/logout')

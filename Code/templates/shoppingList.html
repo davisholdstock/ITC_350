@@ -2,7 +2,7 @@
 
 {% block title %}<br>Shopping List{% endblock %}
 {% block code %}
-{% for item in items %}
+{% for item in itemList %}
 <div>
     <article class="recipe">
        <div class="recipe-content">
@@ -25,6 +25,5 @@
        </div>
    </article>
 </div>
-<!-- <li>RecipeID: {{ recipe[0] }} - Rating: {{ recipe[1] }} - Difficulty: {{ recipe[2] }} - Directions: {{ recipe[3] }} - Duration: {{ recipe[4] }} - Title: {{ recipe[5] }} - Catagory: {{ recipe[6] }} - Picture: {{ recipe[7] }}</li> -->
 {% endfor %}
 {% endblock %}
