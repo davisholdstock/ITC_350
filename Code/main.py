@@ -194,7 +194,7 @@ def recipes():
 @is_logged_in
 def shopping_list():
     itemList = get_shopping_list_items()
-    return render_template("shoppingList.html") # Return the page to be rendered
+    return render_template("shoppingList.html", itemList=itemList) # Return the page to be rendered
 
 # Logout
 @app.route('/logout')
