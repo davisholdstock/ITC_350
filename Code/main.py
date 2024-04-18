@@ -1,3 +1,4 @@
+from ast import literal_eval
 import os
 import re
 from flask import Flask, render_template, request, redirect, session, url_for, flash
@@ -247,13 +248,16 @@ def add_recipe():
 def add_item():
     data = request.form
     print(data)
-    recipe_id = data["recipe_item"][1]
-    item_id = data["recipe_item"][9]
+    recipe_item = literal_eval(data["recipe_item"])
+    recipe_id = recipe_item[0]
+    item_id = recipe_item[8]
     user_id = session['user_id']
+    print(recipe_id)
+    print(user_id)
     conn = get_db_connection()
     cursor = conn.cursor()
     query = """INSERT IGNORE INTO ShoppingList (SLUSerID, SLItemID) VALUES (%s, %s)"""
-    cursor.execute(query, (item_id, user_id))
+    cursor.execute(query, (user_id, item_id))
     conn.commit()
     query = """SELECT * FROM ItemsForRecipe WHERE RecipeID = %s;"""
     cursor.execute(query, (recipe_id,))
