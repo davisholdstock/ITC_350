@@ -265,6 +265,20 @@ def add_item():
     conn.close()
     return render_template("recipe_view.html", result=result) # Return the page to be rendered
 
+@app.route("/removeitem", methods=["POST", "GET"])
+@is_logged_in
+def rem_item():
+    data = request.form
+    item_name = data["item_name"]
+    user_id = session['user_id']
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    query ="""DELETE FROM myShoppingList WHERE SLUserID = %s AND SLItemID = (SELECT ItemID FROM Item WHERE ItemName = %s)"""
+    cursor.execute(query, (user_id, item_name))
+    conn.commit()
+    conn.close()
+    return render_template("shoppingList.html") # Return the page to be rendered
+
 
 # POST a new user
 @app.route("/new-user", methods=["POST"])
