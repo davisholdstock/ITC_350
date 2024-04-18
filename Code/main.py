@@ -247,15 +247,14 @@ def add_recipe():
 def add_item():
     data = request.form
     print(data)
-    recipe_id = data["recipe_item"][0]
-    item_id = data["recipe_item"][8]
+    recipe_id = data["recipe_item"][1]
+    item_id = data["recipe_item"][9]
     user_id = session['user_id']
     conn = get_db_connection()
     cursor = conn.cursor()
     query = """INSERT IGNORE INTO ShoppingList (SLUSerID, SLItemID) VALUES (%s, %s)"""
     cursor.execute(query, (item_id, user_id))
     conn.commit()
-    conn.close()
     query = """SELECT * FROM ItemsForRecipe WHERE RecipeID = %s;"""
     cursor.execute(query, (recipe_id,))
     result = cursor.fetchall()
