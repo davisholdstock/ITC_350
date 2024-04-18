@@ -40,17 +40,6 @@ def get_all_items():
     conn.close() # Close the db connection (NOTE: You should do this after each query, otherwise your database may become locked)
     return result
 
-def get_shopping_list_items():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    query = """SELECT ItemName FROM myShoppingList WHERE SLUserID = %s"""
-    cursor.execute(query, (session['user_id'],))
-    result = cursor.fetchall()
-    conn.close()
-    print(result)
-    return result
-
-
 def get_user_info():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -58,7 +47,7 @@ def get_user_info():
         query = "SELECT * FROM User"
         cursor.execute(query)
     else:
-        query = """SELECT * FROM User WHERE UserID = %s"""
+        query = "SELECT * FROM User WHERE UserID = %s"
         cursor.execute(query, (session['user_id'],))
     result = cursor.fetchall()
     conn.close()
@@ -79,7 +68,7 @@ def get_user_recipes():
     cursor = conn.cursor()
     userid = session["user_id"]
     query = """SELECT * FROM Recipe WHERE RecipeID IN (SELECT CBRecipeID FROM Cookbook WHERE CBUserID = %s)"""
-    cursor.execute(query, (userid,))
+    cursor.execute(query, (session['user_id'],))
     conn.commit()
     result = cursor.fetchall()
     conn.close()
@@ -173,7 +162,7 @@ def changeusername():
     conn = get_db_connection()
     cursor = conn.cursor()
     data = request.form
-    newuser = "\"" + data["ChangeUsername"] + "\""
+    newuser = data["ChangeUsername"]
     query = """UPDATE User SET Username = %s WHERE UserID = %s;"""
     userid = session["user_id"]
     print(userid)
@@ -193,8 +182,7 @@ def recipes():
 @app.route("/shoppinglist", methods=["GET"])
 @is_logged_in
 def shopping_list():
-    itemList = get_shopping_list_items()
-    return render_template("shoppingList.html", itemList=itemList) # Return the page to be rendered
+    return render_template("shoppingList.html") # Return the page to be rendered
 
 # Logout
 @app.route('/logout')
