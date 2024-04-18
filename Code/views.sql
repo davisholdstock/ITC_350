@@ -15,7 +15,7 @@ INNER JOIN ITEM ON Ingredient.IngredientID = Item.ItemID;
 -- VIEW Statement for User Shopping Lists
 CREATE VIEW myShoppingList AS
 SELECT UserID, Username, SLUserID, SLItemID, ItemID, ItemName
-FROM Item
+FROM ShoppingList
 INNER JOIN User ON User.UserID = ShoppingList.SLUserID
 INNER JOIN Item ON ShoppingList.SLItemID = Item.ItemID;
 
