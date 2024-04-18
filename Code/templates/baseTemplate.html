@@ -36,22 +36,9 @@
                     <p class="navbar-links-box"><a class="nav-link navbar-links" href="{{ url_for('logout') }}">Logout</a></p>
                 </div>
             </div>
-            <!------------------------------------------------------------------- Sidebar Banner -------------------------------------------------------------------->
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark col-md-3 hidden-xs hidden-sm hidden-md sidebar-banner"> <!--"col-md-3 hidden-xs hidden-sm hidden-md sidebar-banner">-->
-                <div class="col-md-3">
-					<ul class="nav nav-pills flex-column mb-auto">
-						<h2>Categories</h2>
-                        <p>Appetizers</p>
-                        <p>Soups & Salads</p>
-                        <p>Sides</p>
-                        <p>Baking</p>
-                        <p>Entree</p>
-                        <p>Sauces</p>
-					</ul>
-				</div>
-            </div>
+            
             <!----------------------------------------------------------------------- Main Content -------------------------------------------------------------------->
-            <div class="col-md-9 main-content">
+            <div class="col-md-12 main-content">
                 <div class="row">
                     <!-- Code for listing owned items -->
                     {% block code %} {% endblock %}
