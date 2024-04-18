@@ -119,7 +119,7 @@ def recipe():
 
 @app.route("/mycookbook", methods=["GET"])
 @is_logged_in
-def mycookbook():
+def my_cookbook():
     recipes = get_user_recipes()
     return render_template("myCookbook.html", recipes=recipes) # Return the page to be rendered
 
@@ -191,7 +191,7 @@ def recipes():
 @app.route("/shoppinglist", methods=["GET"])
 @is_logged_in
 def shopping_list():
-    itemList = get_shopping_list_items
+    itemList = get_shopping_list_items()
     return render_template("shoppingList.html", itemList=itemList) # Return the page to be rendered
 
 # Logout
@@ -219,10 +219,30 @@ def add_recipe():
         cursor.execute(query, (recipe_id, user_id))
         conn.commit()
         conn.close()
-        return True
+        return 1
     except Exception as e:
         flash(f"An error occurred: {str(e)}", "error")
-        return True
+        return 1
+
+@app.route("/addallitems", methods=["POST"])
+@is_logged_in
+def add_item():
+    try:
+        data = request.form
+        print(data)
+        item_id = data["ItemID"]
+        user_id = session['user_id']
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        query = """INSERT INTO ShoppingList (SLUSerID, SLItemID) VALUES (%s, %s)"""
+        cursor.execute(query, (item_id, user_id))
+        conn.commit()
+        conn.close()
+        return 1
+    except Exception as e:
+        flash(f"An error occurred: {str(e)}", "error")
+        return 1
+
 
 # POST a new user
 @app.route("/new-user", methods=["POST"])
