@@ -77,10 +77,8 @@ def get_all_recipes():
 def get_user_recipes():
     conn = get_db_connection()
     cursor = conn.cursor()
-    userid = session["user_id"]
     query = """SELECT * FROM Recipe WHERE RecipeID IN (SELECT CBRecipeID FROM Cookbook WHERE CBUserID = %s)"""
     cursor.execute(query, (session['user_id'],))
-    conn.commit()
     result = cursor.fetchall()
     conn.close()
     print(result)
@@ -122,8 +120,8 @@ def recipe():
 @app.route("/mycookbook", methods=["GET"])
 @is_logged_in
 def my_cookbook():
-    recipelist = get_user_recipes()
-    return render_template("myCookbook.html", recipes=recipelist) # Return the page to be rendered
+    recipes = get_user_recipes()
+    return render_template("myCookbook.html", recipes=recipes) # Return the page to be rendered
 
 @app.route("/findrecipe", methods=["GET"])
 @is_logged_in
