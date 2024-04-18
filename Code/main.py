@@ -63,6 +63,18 @@ def get_all_recipes():
     conn.close()
     return result
 
+def get_user_recipes():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    userid = session["user_id"]
+    query = """SELECT * FROM Recipe WHERE RecipeID IN (SELECT CBRecipeID FROM Cookbook WHERE CBUserID = %s)"""
+    cursor.execute(query, (userid,))
+    conn.commit()
+    result = cursor.fetchall()
+    conn.close()
+    print(result)
+    return result
+
 # Check if user logged in
 def is_logged_in(f):
     @wraps(f)
@@ -99,7 +111,8 @@ def recipe():
 @app.route("/mycookbook", methods=["GET"])
 @is_logged_in
 def my_cookbook():
-    return render_template("myCookbook.html") # Return the page to be rendered
+    recipelist = get_user_recipes()
+    return render_template("myCookbook.html", recipes=recipelist) # Return the page to be rendered
 
 @app.route("/findrecipe", methods=["GET"])
 @is_logged_in
@@ -134,7 +147,7 @@ def get_some_recipes():
     ingredient_count = len(item_names)
     # Execute the query
     cursor.execute(query, item_names + (ingredient_count,))
-
+    
     result = cursor.fetchall()
     recipelist = []
     for recipe in result:
@@ -143,22 +156,23 @@ def get_some_recipes():
     conn.close()
     return render_template("recipes.html", recipes=recipelist)
 
-# @app.route("/change_username", methods=["PUT"])
-# @is_logged_in
-# def changeusername():
-#     conn = get_db_connection()
-#     cursor = conn.cursor()
-#     data = request.form
-#     newuser = "\"" + data["ChangeUsername"] + "\""
-#     query = """UPDATE User SET Username = %s WHERE UserID = %s;"""
-#     userid = session["user_id"]
-#     print(userid)
-#     print(newuser)
-#     print(query)
-#     cursor.execute(query, (newuser, userid))
-#     conn.close()
-#     print(get_user_info())
-#     return render_template("index.html", items=get_user_info())
+@app.route("/change_username", methods=["POST"])
+@is_logged_in
+def changeusername():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    data = request.form
+    newuser = "\"" + data["ChangeUsername"] + "\""
+    query = """UPDATE User SET Username = %s WHERE UserID = %s;"""
+    userid = session["user_id"]
+    print(userid)
+    print(newuser)
+    print(query)
+    cursor.execute(query, (newuser, userid))
+    conn.commit()
+    conn.close()
+    print(get_user_info())
+    return render_template("index.html", items=get_user_info())
 
 @app.route("/recipes", methods=["GET"])
 def recipes():
