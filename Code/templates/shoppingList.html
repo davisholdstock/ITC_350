@@ -1,10 +1,15 @@
 {% extends 'baseTemplate.html' %}
 
-{% block title %}<br>Shopping List{% endblock %}
+{% block title %}
+    Shopping List
+{% endblock %}
+
 {% block code %}
-{% for item in itemList %}
-<div>
-{{item[0]}}<br>
-</div>
-{% endfor %}
+    <div class="shopping-list">
+        <ul>
+            {% for item in itemList %}
+                <li>{{ item[0] }}<br></li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

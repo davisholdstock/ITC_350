@@ -90,6 +90,25 @@
 	}
 }
 
+.shopping-list {
+    margin-top: 20px;
+}
+
+.shopping-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.shopping-list li {
+    margin-bottom: 5px;
+    font-size: 16px;
+	border-radius: 2px;
+	border-width: 3px;
+	border-color: #193753;
+	background-color: #d0e1f5;
+}
+
+
 .recipe {
 	border: 2px solid #F2F2F2;
 	border-radius: 8px;

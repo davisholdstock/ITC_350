@@ -4,7 +4,7 @@
 
 {% block code %}
 <img src="{{url_for('static', filename='recipe_pictures/' + result[0][7])}}">
-<div><h3><br>Ingredients<br></h3></div>
+<h3><br>Ingredients<br></h3>
 <div>
     {% for item in result %}
         <br>
@@ -12,15 +12,15 @@
         <div>
             <form action="{{ url_for('add_item') }}" method="post">
                 <input type="hidden" name="recipe_item" value="{{ item }}"/>
-                <div>
+                <span>
                     <button id="submit_ingredients_{{ loop.index }}" name="submit" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
                     style="padding-left: 2.5rem; padding-right: 2.5rem;">Add Ingredients</button>
-                </div>
+                </span>
             </form>
         </div>
     {% endfor %}
 </div>
-<div><h3><br>Directions<br></h3></div>
+<h3><br>Directions<br></h3>
 <div>{{ result[0][3] }}</div>
 <div>
     <a class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;" href="{{ url_for('recipes') }}">Return to All Recipes</a>
