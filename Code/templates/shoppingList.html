@@ -8,7 +8,7 @@
     <div class="shopping-list">
         <ul>
             {% for item in itemList %}
-                <li>{{ item[0] }}<br>
+                <li style="display: flex; align-items: center;">{{ item[0] }}<br>
                     <form action="{{ url_for('rem_item')}}" method="post">
                         <input type="hidden" name="item_name" value="{{item[0]}}"/>
                         <button id="remItem_{{loop.index}}" name="delete" type="delete" 

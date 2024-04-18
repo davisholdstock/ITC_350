@@ -273,7 +273,7 @@ def rem_item():
     user_id = session['user_id']
     conn = get_db_connection()
     cursor = conn.cursor()
-    query ="""DELETE FROM myShoppingList WHERE SLUserID = %s AND SLItemID = (SELECT ItemID FROM Item WHERE ItemName = %s)"""
+    query ="""DELETE FROM ShoppingList WHERE SLUserID = %s AND SLItemID = (SELECT ItemID FROM Item WHERE ItemName = %s)"""
     cursor.execute(query, (user_id, item_name))
     conn.commit()
     conn.close()
