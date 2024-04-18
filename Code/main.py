@@ -227,11 +227,12 @@ def register():
 @app.route("/recipe-to-cookbook", methods=["POST", "GET"])
 def add_recipe():
     data = request.form
+    print(data)
     recipe_id = data["recipe_id"]
     user_id = session['user_id']
     conn = get_db_connection()
     cursor = conn.cursor()
-    query = """INSERT INTO Cookbook (CBRecipeID, CBUserID) VALUES (%s, %s)"""
+    query = """INSERT IGNORE INTO Cookbook (CBRecipeID, CBUserID) VALUES (%s, %s)"""
     cursor.execute(query, (recipe_id, user_id))
     conn.commit()
     query = """SELECT * FROM ItemsForRecipe WHERE RecipeID = %s;"""
@@ -246,12 +247,12 @@ def add_recipe():
 def add_item():
     data = request.form
     print(data)
-    recipe_id = data["recipe_id"]
-    item_id = data["ItemID"]
+    recipe_id = data["recipe_ingredients"][0][0]
+    item_id = data["recipe_ingredients"][0][8]
     user_id = session['user_id']
     conn = get_db_connection()
     cursor = conn.cursor()
-    query = """INSERT INTO ShoppingList (SLUSerID, SLItemID) VALUES (%s, %s)"""
+    query = """INSERT IGNORE INTO ShoppingList (SLUSerID, SLItemID) VALUES (%s, %s)"""
     cursor.execute(query, (item_id, user_id))
     conn.commit()
     conn.close()
