@@ -294,12 +294,12 @@ def rem_item():
 @is_logged_in
 def rem_recipe():
     data = request.form
-    recipe_title = data["kill_recipe_id"]
+    recipe_id = data["kill_recipe_id"]
     user_id = session['user_id']
     conn = get_db_connection()
     cursor = conn.cursor()
-    query ="""DELETE FROM Cookbook WHERE CBUserID = %s AND CBRecipeID = (SELECT RecipeID FROM Recipe WHERE Title = %s)"""
-    cursor.execute(query, (user_id, recipe_title))
+    query ="""DELETE FROM Cookbook WHERE CBUserID = %s AND CBRecipeID = %s"""
+    cursor.execute(query, (user_id, recipe_id))
     conn.commit()
     conn.close()
     userCookbook = get_user_recipes()
