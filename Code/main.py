@@ -298,7 +298,7 @@ def rem_recipe():
     user_id = session['user_id']
     conn = get_db_connection()
     cursor = conn.cursor()
-    query ="""DELETE FROM Cookbook WHERE CBUserID = %s AND CBRecipeID = (SELECT RecipeID FROM Item WHERE Title = %s)"""
+    query ="""DELETE FROM Cookbook WHERE CBUserID = %s AND CBRecipeID = (SELECT RecipeID FROM Recipe WHERE Title = %s)"""
     cursor.execute(query, (user_id, recipe_title))
     conn.commit()
     conn.close()
