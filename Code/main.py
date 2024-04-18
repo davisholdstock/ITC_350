@@ -119,7 +119,7 @@ def recipe():
 
 @app.route("/mycookbook", methods=["GET"])
 @is_logged_in
-def my_cookbook():
+def mycookbook():
     recipes = get_user_recipes()
     return render_template("myCookbook.html", recipes=recipes) # Return the page to be rendered
 
