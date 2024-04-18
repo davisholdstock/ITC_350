@@ -19,3 +19,5 @@ For remote users log in with this command: ```mysqlsh -u <username> -p<password>
 3. Run ```pip install Flask``` (version 3.0.2)
 4. Run ```pip install python-dotenv``` (version 1.0.1)
 5. Run ```pip install mysql-connector-python```
+6. Run ```pip install pandas```
+7. Run ```pip install bcrypt```

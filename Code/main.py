@@ -1,4 +1,5 @@
 from ast import literal_eval
+import hashlib
 import os
 import re
 from flask import Flask, render_template, request, redirect, session, url_for, flash
@@ -86,15 +87,15 @@ def get_user_recipes():
     print(result)
     return result
 
-def hash_password(password):
-    salt = bcrypt.gensalt()
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-    return hashed_password
+def hash_string(data):
+    # Hash the string using SHA-256
+    hashed_data = hashlib.sha256(data.encode('utf-8')).hexdigest()
+    return hashed_data
 
-def verify_password(password, hashed_password):
-    # Verify the password against the hashed password
-    return bcrypt.checkpw(password.encode('utf-8'), hashed_password)
-
+def verify_data(data, hashed_data):
+    # Hash the input data and compare with the provided hash
+    return hash_string(data) == hashed_data
+    
 # Check if user logged in
 def is_logged_in(f):
     @wraps(f)
@@ -319,7 +320,7 @@ def add_user():
             # error = 'Passwords do not match'
             flash("Passwords do not match", "error")
         else:
-            hashedpassword = hash_password(user_password)
+            hashedpassword = hash_string(user_password)
             conn = get_db_connection()
             cursor = conn.cursor()
             query = """INSERT INTO User (Username, Password) VALUES (%s, %s)"""
@@ -344,7 +345,7 @@ def login():
         row = request.form
         username = row["email"]
         password_candidate = row["password"]
-
+        
         # Create cursor
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -361,7 +362,7 @@ def login():
             password = result[2]
 
             # Compare Passwords
-            if verify_password(password_candidate, password): # sha256_crypt.verify(password_candidate, password):
+            if verify_data(password_candidate, password): # sha256_crypt.verify(password_candidate, password):
                 # Passed
                 session['logged_in'] = True
                 session['username'] = username
