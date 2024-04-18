@@ -10,7 +10,7 @@
         <form action="/change_username" method="post">
             <div style="padding: 3%;">
                 <div>
-                    <input type="email" name="ChangeUsername" id="ChangeUsername">
+                    <input required type="email" name="ChangeUsername" id="ChangeUsername">
                 </div>
                 <div>
                     <label for="ChangeUsername">New Username</label>
@@ -22,7 +22,7 @@
         <form action="/change_password" method="post">
             <div style="padding: 3%;">
                 <div>
-                    <input type="text" name="ChangePassword" id="ChangePassword">
+                    <input type="password" required minlength="8" name="ChangePassword" id="ChangePassword">
                 </div>
                 <div>
                     <label for="ChangePassword">New Password</label>

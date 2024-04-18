@@ -4,6 +4,14 @@
 
 {% block code %}
 <img src="{{url_for('static', filename='recipe_pictures/' + result[0][7])}}">
+<div><h3>Ingredients</h3></div>
+<div>
+    {% for item in result %}
+        <br>
+        {{ item[9] }} - Quantity: {{ item[10] }} {{ item[11] }}
+    {% endfor %}
+</div>
+<div><h3>Directions</h3></div>
 <div>{{ result[0][3] }}</div>
 <div>
     <a class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;" href="{{ url_for('recipes') }}">Return to All Recipes</a>
@@ -17,12 +25,7 @@
         </div>
     </form>
 </div>
-<div>
-    {% for item in result %}
-        <br>
-        ItemName: {{ item[9] }} - Quantity: {{ item[10] }} {{ item[11] }}
-    {% endfor %}
-</div>
+
 <div>
     <form action="{{ url_for('add_item') }}" method="post">
         <input type="hidden" name="recipe_ingredients" value="{{ result }}"/>

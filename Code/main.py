@@ -183,6 +183,23 @@ def changeusername():
     print(get_user_info())
     return render_template("index.html", items=get_user_info())
 
+@app.route("/change_password", methods=["POST"])
+@is_logged_in
+def changepassword():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    data = request.form
+    newpass = data["ChangePassword"]
+    query = """UPDATE User SET Password = %s WHERE UserID = %s;"""
+    userid = session["user_id"]
+    print(userid)
+    print(query)
+    cursor.execute(query, (newpass, userid))
+    conn.commit()
+    conn.close()
+    print(get_user_info())
+    return render_template("index.html", items=get_user_info())
+
 @app.route("/recipes", methods=["GET"])
 def recipes():
     recipes = get_all_recipes()
@@ -207,41 +224,42 @@ def register():
     return render_template("register.html")
 
 # Add recipe to user cookbook
-@app.route("/recipe-to-cookbook", methods=["POST"])
+@app.route("/recipe-to-cookbook", methods=["POST", "GET"])
 def add_recipe():
-    try:
-        data = request.form
-        recipe_id = data["recipe_id"]
-        user_id = session['user_id']
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        query = """INSERT INTO Cookbook (CBRecipeID, CBUserID) VALUES (%s, %s)"""
-        cursor.execute(query, (recipe_id, user_id))
-        conn.commit()
-        conn.close()
-        return 1
-    except Exception as e:
-        flash(f"An error occurred: {str(e)}", "error")
-        return 1
+    data = request.form
+    recipe_id = data["recipe_id"]
+    user_id = session['user_id']
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    query = """INSERT INTO Cookbook (CBRecipeID, CBUserID) VALUES (%s, %s)"""
+    cursor.execute(query, (recipe_id, user_id))
+    conn.commit()
+    query = """SELECT * FROM ItemsForRecipe WHERE RecipeID = %s;"""
+    cursor.execute(query, (recipe_id,))
+    result = cursor.fetchall()
+    conn.close()
+    return render_template("recipe_view.html", result=result) # Return the page to be rendered
 
-@app.route("/addallitems", methods=["POST"])
+
+@app.route("/addallitems", methods=["POST", "GET"])
 @is_logged_in
 def add_item():
-    try:
-        data = request.form
-        print(data)
-        item_id = data["ItemID"]
-        user_id = session['user_id']
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        query = """INSERT INTO ShoppingList (SLUSerID, SLItemID) VALUES (%s, %s)"""
-        cursor.execute(query, (item_id, user_id))
-        conn.commit()
-        conn.close()
-        return 1
-    except Exception as e:
-        flash(f"An error occurred: {str(e)}", "error")
-        return 1
+    data = request.form
+    print(data)
+    recipe_id = data["recipe_id"]
+    item_id = data["ItemID"]
+    user_id = session['user_id']
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    query = """INSERT INTO ShoppingList (SLUSerID, SLItemID) VALUES (%s, %s)"""
+    cursor.execute(query, (item_id, user_id))
+    conn.commit()
+    conn.close()
+    query = """SELECT * FROM ItemsForRecipe WHERE RecipeID = %s;"""
+    cursor.execute(query, (recipe_id,))
+    result = cursor.fetchall()
+    conn.close()
+    return render_template("recipe_view.html", result=result) # Return the page to be rendered
 
 
 # POST a new user
