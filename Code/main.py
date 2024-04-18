@@ -303,7 +303,7 @@ def rem_recipe():
     conn.commit()
     conn.close()
     userCookbook = get_user_recipes()
-    return render_template("shoppingList.html", recipes=userCookbook) # Return the page to be rendered
+    return render_template("myCookbook.html", recipes=userCookbook) # Return the page to be rendered
 
 # POST a new user
 @app.route("/new-user", methods=["POST"])
@@ -361,7 +361,7 @@ def login():
             password = result[2]
 
             # Compare Passwords
-            if password_candidate == password: # sha256_crypt.verify(password_candidate, password):
+            if verify_password(password_candidate, password): # sha256_crypt.verify(password_candidate, password):
                 # Passed
                 session['logged_in'] = True
                 session['username'] = username
